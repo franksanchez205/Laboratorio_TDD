@@ -72,6 +72,12 @@ export class Carrito {
     return this.subtotal() - this.descuento();
   }
 
+  envio() {
+    const base = this.baseGravable();
+    if (base === 0 || base >= 150000) return 0;
+    return 12000;
+  }
+
   resumen() {
     return {
       subtotal: this.subtotal(),
@@ -79,5 +85,9 @@ export class Carrito {
       iva: this.iva(),
       total: this.total(),
     };
+  }
+
+  total() {
+    return this.baseGravable() + this.iva() + this.envio();
   }
 }
