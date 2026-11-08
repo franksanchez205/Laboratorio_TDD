@@ -165,4 +165,31 @@ describe('Carrito de compras', () => {
       assert.equal(carrito.total(), 131000);
     });
   });
+
+  describe('Reto adicional: actualizar cantidad', () => {
+    test('actualizarCantidad cambia la cantidad de un producto existente', () => {
+      carrito.agregar('Mouse', 50000, 2);
+
+      carrito.actualizarCantidad('Mouse', 5);
+
+      assert.equal(carrito.cantidadDeItems(), 5);
+      assert.equal(carrito.subtotal(), 250000);
+    });
+
+    test('actualizarCantidad con nueva cantidad 0 elimina el producto', () => {
+      carrito.agregar('Mouse', 50000, 2);
+      carrito.agregar('Teclado', 120000, 1);
+
+      carrito.actualizarCantidad('Mouse', 0);
+
+      assert.equal(carrito.cantidadDeItems(), 1);
+      assert.equal(carrito.subtotal(), 120000);
+    });
+
+    test('actualizarCantidad con cantidad negativa lanza un error', () => {
+      carrito.agregar('Mouse', 50000, 2);
+
+      assert.throws(() => carrito.actualizarCantidad('Mouse', -1), /cantidad/);
+    });
+  });
 });
