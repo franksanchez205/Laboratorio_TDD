@@ -71,4 +71,13 @@ export class Carrito {
   baseGravable() {
     return this.subtotal() - this.descuento();
   }
+
+  resumen() {
+    return {
+      subtotal: this.subtotal(),
+      descuento: this.descuento(),
+      iva: this.iva(),
+      total: this.total(),
+    };
+  }
 }
